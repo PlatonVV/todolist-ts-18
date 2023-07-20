@@ -7,12 +7,12 @@ import { tasksThunks } from "features/TodolistsList/tasks.reducer";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { Button, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { TaskType } from "features/TodolistsList/todolist.api";
 import { TaskStatuses } from "common/enum";
+import { TaskType } from "features/TodolistsList/todolists.types";
 
 type PropsType = {
   todolist: TodolistDomainType;
-  tasks: Array<TaskType>;
+  tasks: TaskType[];
   changeFilter: (value: FilterValuesType, todolistId: string) => void;
   addTask: (title: string, todolistId: string) => void;
   changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void;
