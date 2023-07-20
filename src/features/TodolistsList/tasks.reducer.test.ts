@@ -1,5 +1,5 @@
 import { tasksReducer, TasksStateType, tasksThunks } from "features/TodolistsList/tasks.reducer";
-import { todolistsActions } from "features/TodolistsList/todolists.reducer";
+import { todosActions, todosThunks } from "features/TodolistsList/todolists.reducer";
 import { TaskPriorities, TaskStatuses } from "common/enum";
 
 let startState: TasksStateType = {};
@@ -155,7 +155,7 @@ test("title of specified task should be changed", () => {
 });
 
 test("new array should be added when new todolist is added", () => {
-  const action = todolistsActions.addTodolist({
+  const action = todosActions.addTodolist({
     todolist: {
       id: "blabla",
       title: "new todolist",
@@ -177,7 +177,7 @@ test("new array should be added when new todolist is added", () => {
 });
 
 test("propertry with todolistId should be deleted", () => {
-  const action = todolistsActions.removeTodolist({ id: "todolistId2" });
+  const action = todosThunks.removeTodolist.fulfilled({ id: "todolistId2" }, "requestId", "todolistId2");
 
   const endState = tasksReducer(startState, action);
 
@@ -188,12 +188,15 @@ test("propertry with todolistId should be deleted", () => {
 });
 
 test("empty arrays should be added when we set todolists", () => {
-  const action = todolistsActions.setTodolists({
-    todolists: [
-      { id: "1", title: "title 1", order: 0, addedDate: "" },
-      { id: "2", title: "title 2", order: 0, addedDate: "" },
-    ],
-  });
+  const action = todosThunks.fetchTodos.fulfilled(
+    {
+      todolists: [
+        { id: "1", title: "title 1", order: 0, addedDate: "" },
+        { id: "2", title: "title 2", order: 0, addedDate: "" },
+      ],
+    },
+    "requestId"
+  );
 
   const endState = tasksReducer({}, action);
 
